@@ -427,26 +427,6 @@
         }
     };
 
-
-        const template = resultsTemplates[risk];
-        const resultsContainer = document.getElementById('results-container');
-        const loadingContainer = document.getElementById('loading-container');
-
-        // Get display-friendly industry name
-        const industryName = industryNames[industryCode] || industryCode;
-
-        // Create container with appropriate class
-        const containerDiv = document.createElement('div');
-        containerDiv.className = `container ${template.containerClass}`;
-        containerDiv.innerHTML = template.content;
-
-        // Insert and display results
-        resultsContainer.appendChild(containerDiv);
-        
-        // Hide loading, show results
-        resultsContainer.style.display = 'block';
-    }
-
     // -----------------------------------------------
     // CLAY WEBHOOK — paste your Clay webhook URL below
     // -----------------------------------------------
@@ -459,7 +439,6 @@
         const assetName = `${risk}-ONEPAGER-${industry}`;
         const message = resultsTemplates[risk].message;
 
-        // Fire Clay webhook if configured
         if (CLAY_WEBHOOK_URL) {
             fetch(CLAY_WEBHOOK_URL, {
                 method: 'POST',
@@ -483,13 +462,10 @@
     function displayResults(risk, industryCode) {
         const template = resultsTemplates[risk];
         const resultsContainer = document.getElementById('results-container');
-
         const industryName = industryNames[industryCode] || industryCode;
-
         const containerDiv = document.createElement('div');
         containerDiv.className = `container ${template.containerClass}`;
         containerDiv.innerHTML = template.content;
-
         resultsContainer.appendChild(containerDiv);
         resultsContainer.style.display = 'block';
     }
